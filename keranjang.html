@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keranjang</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="cart.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Keranjang Belanja</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="profil.html">Profil</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="galeri.html">Galeri</a></li>
+                <li><a href="kategori.html">Kategori</a></li>
+                <li><a href="keranjang.html">Keranjang</a></li>
+                <li><a href="checkout.html">Checkout</a></li>
+                <li><a href="kontak.html">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="keranjang">
+            <h2>Keranjang Belanja Anda</h2>
+            <table id="cart-table">
+                <thead>
+                    <tr>
+                        <th>Gambar</th>
+                        <th>Nama Produk</th>
+                        <th>Harga</th>
+                        <th>Jumlah</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><img src="tenun1.jpg" alt="Kain Tenun Sumba 1" class="thumbnail"></td>
+                        <td>Kain Tenun Sumba 1</td>
+                        <td>Rp 500.000</td>
+                        <td>
+                            <input type="number" value="1" min="1" class="quantity" data-price="500000">
+                        </td>
+                        <td class="total">Rp 500.000</td>
+                    </tr>
+                    <tr>
+                        <td><img src="tenun2.jpg" alt="Kain Tenun Sumba 2" class="thumbnail"></td>
+                        <td>Kain Tenun Sumba 2</td>
+                        <td>Rp 600.000</td>
+                        <td>
+                            <input type="number" value="2" min="1" class="quantity" data-price="600000">
+                        </td>
+                        <td class="total">Rp 1.200.000</td>
+                    </tr>
+                    <tr>
+                        <td><img src="tenun3.jpg" alt="Kain Tenun Sumba 3" class="thumbnail"></td>
+                        <td>Kain Tenun Sumba 3</td>
+                        <td>Rp 800.000</td>
+                        <td>
+                            <input type="number" value="3" min="1" class="quantity" data-price="800000">
+                        </td>
+                        <td class="total">Rp 2.400.000</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="total-harga">
+                <p>Total Harga: <span id="total-harga">Rp 4.100.000</span></p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; Penjualan Kain Tenun Sumba. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const quantityInputs = document.querySelectorAll('.quantity');
+            const totalHargaEl = document.getElementById('total-harga');
+
+            function updateTotalHarga() {
+                let totalHarga = 0;
+                quantityInputs.forEach(input => {
+                    const price = parseInt(input.dataset.price);
+                    const quantity = parseInt(input.value);
+                    const subtotal = price * quantity;
+                    totalHarga += subtotal;
+                    const row = input.parentNode.parentNode;
+                    row.querySelector('.total').textContent = `Rp ${subtotal.toLocaleString()}`;
+                });
+                totalHargaEl.textContent = `Rp ${totalHarga.toLocaleString()}`;
+            }
+
+            quantityInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    updateTotalHarga();
+                });
+            });
+
+            updateTotalHarga();
+        });
+    </script>
+</body>
+</html>
